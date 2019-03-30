@@ -1,6 +1,6 @@
 @extends('mainTheme')
 
-@section('title' , 'Manage Users')
+@section('title' , 'Manage Admin')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/dataTable/dataTables.bootstrap4.min.css') }}"/>
@@ -15,13 +15,13 @@
                 <p class="card-description">
                     kelola data<code> Pengguna Aktif </code>
                 </p>
-                <a href="/admin">
+                <a href="/users">
                     <button type="button" class="btn btn-gradient-primary btn-rounded btn-icon-text float-right" style="margin-left:10px">
-                        <i class="mdi mdi-account-settings-variant btn-icon-prepend"></i>
-                        Admin
+                        <i class="mdi mdi-account btn-icon-prepend"></i>
+                        Pelanggan
                     </button>
                 </a>
-                <a href="users/create">
+                <a href="admin/create">
                     <button type="button" class="btn btn-gradient-success btn-rounded btn-icon float-right">
                         <i class="mdi mdi-plus"></i>
                     </button>
@@ -31,45 +31,38 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama</th>
-                        <th>Nomer KWH</th>
                         <th>Alamat</th>
-                        <th>Tarif KWH</th>
-                        <th width="140px">Aksi</th>
+                        <th>Roles</th>
+                        <th width="120px">Aksi</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>No.</th>
                         <th>Nama</th>
-                        <th>Nomer KWH</th>
                         <th>Alamat</th>
-                        <th>Tarif KWH</th>
+                        <th>Roles</th>
                         <th>Aksi</th>
                     </tr>
                     </tfoot>
                     <tbody>
                     @php $no = 1 @endphp
-                    @foreach($getUser as $users)
+                    @foreach($getAdmin as $admin)
                         @php
-                            $address = json_decode($users->alamat);
+                            $admin->alamat = json_decode($admin->alamat);
                         @endphp
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $users->name }}</td>
-                            <td>{{ $users->nomor_kwh }}</td>
+                            <td>{{ $admin->name }}</td>
                             <td>
-                                {{ $address->address }}, {{ $address->city }}, {{ $address->state }}, {{ $address->postcode }}
+                                {{ $admin->alamat->address }}, {{ $admin->alamat->city }}, {{ $admin->alamat->state }}, {{ $admin->alamat->country }}, {{ $admin->alamat->postcode }}
                             </td>
-                            @if($users->tarif)
-                                <td>{{ $users->tarif->daya }}</td>
-                            @else
-                                <td>Belum Di Tetapkan</td>
-                            @endif
+                            <td>{{ $admin->roles->nama_role }}</td>
                             <td>
-                                <form action="{{ route('users.destroy' , $users->id) }}" method="post">
+                                <form action="{{ route('admin.destroy' , $admin->id) }}" method="post">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a href="{{ route('users.edit' , $users->id) }}">
+                                    <a href="{{ route('admin.edit' , $admin->id) }}">
                                         <button type="button" class="btn btn-rounded btn-sm btn-info btn-icon">
                                             <i class="mdi mdi-grease-pencil"></i>
                                         </button>

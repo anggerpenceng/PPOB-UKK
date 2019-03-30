@@ -38,10 +38,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'role.admin'] , function (){
 
+        //Users and Admin
         Route::resource('users' , 'Users\UsersController');
+        Route::resource('admin' , 'Users\AdminController');
 
         //tarif
-
         Route::resource('tarif' , 'Tarif\TarifController');
 
         //roles management

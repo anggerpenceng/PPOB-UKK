@@ -1,14 +1,14 @@
 @extends('mainTheme')
 
-@section('title' , 'Add Users')
+@section('title' , 'Add Admin')
 
 @section('content')
 
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Horizontal Two column</h4>
-                <form class="form-sample" action="{{ route('users.store') }}" method="post">
+                <h4 class="card-title">Tambah Admin Baru</h4>
+                <form class="form-sample" action="{{ route('admin.store') }}" method="post">
                     {{ csrf_field() }}
                     <p class="card-description">
                         Personal info
@@ -40,23 +40,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">No. KWH</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="nomer_kwh" maxlength="9" />
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Daya</label>
+                                <label class="col-sm-3 col-form-label">Roles</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" id="daya" name="id_tarif">
-                                        @foreach($getTarif as $tarif)
-                                            <option value="{{ $tarif->id }}">{{ $tarif->daya }}</option>
+                                    <select class="form-control" id="role" name="id_role">
+                                        @foreach($getRoles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
                                         @endforeach
                                     </select>
                                 </div>

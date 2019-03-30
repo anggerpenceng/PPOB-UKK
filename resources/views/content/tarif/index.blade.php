@@ -93,10 +93,6 @@
                     <div class="success">{{ Session::get('info') }}</div>
                     <br>
                 @endif
-                <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon-text float-right" style="margin-left:10px">
-                    <i class="mdi mdi-delete-sweep btn-icon-prepend"></i>
-                    All
-                </button>
                 <button type="button" class="btn btn-gradient-success btn-rounded btn-icon float-right" data-toggle="modal" data-target="#myModal">
                     <i class="mdi mdi-plus"></i>
                 </button>

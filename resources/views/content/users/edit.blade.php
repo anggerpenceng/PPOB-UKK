@@ -1,6 +1,6 @@
 @extends('mainTheme')
 
-@section('title' , 'Add Users')
+@section('title' , 'Edit Users')
 
 @section('content')
 
