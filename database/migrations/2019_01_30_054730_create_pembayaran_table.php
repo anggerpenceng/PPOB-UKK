@@ -20,11 +20,11 @@ class CreatePembayaranTable extends Migration
             $table->dateTime('tgl_pembayaran');
             $table->integer('biaya_admin');
             $table->decimal('total_bayar' , 10 , 2);
-            $table->unsignedInteger('id_admin');
+            $table->unsignedInteger('id_admin')->nullable();
 
-            $table->foreign('id_tagihan')->references('id')->on('tagihan')->onDelete('no action');
-            $table->foreign('id_pelanggan')->references('id')->on('users')->onDelete('no action');
-            $table->foreign('id_admin')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('id_tagihan')->references('id')->on('tagihan')->onDelete('cascade');
+            $table->foreign('id_pelanggan')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_admin')->references('id')->on('users')->onDelete('set null');
 
             $table->timestamps();
         });

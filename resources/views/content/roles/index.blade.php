@@ -120,7 +120,7 @@
                                     <button type="button" class="btn btn-rounded btn-sm btn-info btn-icon" data-toggle="modal" data-target="#edit-{{ $roles->id }}">
                                         <i class="mdi mdi-grease-pencil"></i>
                                     </button>
-                                    <button type="submit" class="btn btn-rounded btn-sm btn-danger btn-icon" onclick="return confirm('yakin ingin menghapus?')">
+                                    <button type="submit" class="btn btn-rounded btn-sm btn-danger btn-icon" onclick="return confirm('yakin ingin menghapus? Semua data yang berhubungan dengan role ini akan hilang')">
                                         <i class="mdi mdi-delete"></i>
                                     </button>
                                 </form>

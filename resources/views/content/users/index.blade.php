@@ -58,7 +58,7 @@
                             <td>{{ $users->name }}</td>
                             <td>{{ $users->nomor_kwh }}</td>
                             <td>
-                                {{ $address->address }}, {{ $address->city }}, {{ $address->state }}, {{ $address->postcode }}
+                                {{ $address->address }}, {{ $address->city }}, {{ $address->state }}, {{ $address->country }}, {{ $address->postcode }}
                             </td>
                             @if($users->tarif)
                                 <td>{{ $users->tarif->daya }}</td>

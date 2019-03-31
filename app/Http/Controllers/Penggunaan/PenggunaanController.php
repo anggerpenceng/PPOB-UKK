@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Penggunaan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PenggunaanRequest;
+use App\Model\Penggunaan;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PenggunaanController extends Controller
 {
@@ -14,7 +20,17 @@ class PenggunaanController extends Controller
      */
     public function index()
     {
-        //
+        $getUser = User::with('tarif')
+            ->whereHas('roles' , function ($query){
+                $query->where('nama_role' , '=' , 'pelanggan');
+            })
+            ->where('id_tarif' , '!=' , null)
+            ->orderBy('id' ,'DESC')
+            ->get();
+
+        $data['selection'] = 4;
+
+        return response()->view('content.penggunaan.index' , compact('getUser' , 'data'));
     }
 
     /**
@@ -30,12 +46,44 @@ class PenggunaanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param PenggunaanRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(PenggunaanRequest $request)
     {
-        //
+        try{
+
+            $awal = $request->meter_awal;
+            $akhir = $request->meter_akhir;
+
+            $penggunaan = new Penggunaan;
+
+            $penggunaan->id_pelanggan = $request->id_user;
+            $penggunaan->bulan = $request->month;
+            $penggunaan->tahun = $request->year;
+            $penggunaan->meter_awal = $awal;
+            $penggunaan->meter_akhir = $akhir;
+            $penggunaan->jumlah_meter = $akhir - $awal;
+            $penggunaan->status = 0;
+
+            $penggunaan->saveOrFail();
+            return redirect('/penggunaan');
+
+        }catch (\Exception $exception){
+
+            if ($exception instanceof ModelNotFoundException){
+
+                return redirect('/penggunaan/'.$request->id_user)->withErrors([$exception->getMessage()]);
+
+            }else if ($exception instanceof ValidationException){
+
+                return redirect('/penggunaan/'.$request->id_user)->withErrors([$exception->getMessage()]);
+
+            }
+            return redirect('/penggunaan/'.$request->id_user)->withErrors([$exception->getMessage()]);
+
+        }
     }
 
     /**
@@ -46,7 +94,20 @@ class PenggunaanController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['selection'] = 4;
+        $month = [
+            "Januari" , "Februari" ,
+            "Maret" , "April" ,
+            "Mei" , "Juni" ,
+            "Juli" , "Agustus" ,
+            "September" , "Oktober" ,
+            "November" , "Desember"
+        ];
+
+        $yearNow = Carbon::now()->year + 10;
+        $getUser = User::query()->find($id);
+
+        return response()->view('content.penggunaan.add' , compact('data' , 'month' , 'yearNow' , 'getUser'));
     }
 
     /**

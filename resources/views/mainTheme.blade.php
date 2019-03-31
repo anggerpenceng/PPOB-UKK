@@ -219,7 +219,7 @@
 					</a>
 				</li>
 				<li class="nav-item @if($data['selection'] == 4) active @endif ">
-					<a class="nav-link" href="#">
+					<a class="nav-link" href="/penggunaan">
 						<span class="menu-title">Penggunaan User</span>
 						<i class="mdi mdi-cash-multiple menu-icon"></i>
 					</a>

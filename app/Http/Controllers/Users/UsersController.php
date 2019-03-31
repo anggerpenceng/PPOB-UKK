@@ -17,8 +17,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $getUser = User::with('roles')
-            ->with('tarif')
+        $getUser = User::with('tarif')
+            ->whereHas('roles' , function ($query){
+                $query->where('nama_role' , '=' , 'pelanggan');
+            })
             ->orderBy('id' ,'DESC')
             ->get();
 
@@ -113,15 +115,15 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (empty($request->password)){
+        $array_address = [
+            "address" => $request->address,
+            "city" => $request->city,
+            "state" => $request->state,
+            "postcode" => $request->postcode,
+            "country" => $request->country
+        ];
 
-            $array_address = [
-                "address" => $request->address,
-                "city" => $request->city,
-                "state" => $request->state,
-                "postcode" => $request->postcode,
-                "country" => $request->country
-            ];
+        if (empty($request->password)){
 
             $create = User::query()->find($id)->update([
                 "name" => $request->name,
@@ -140,14 +142,6 @@ class UsersController extends Controller
             return redirect('/users');
 
         }
-
-        $array_address = [
-            "address" => $request->address,
-            "city" => $request->city,
-            "state" => $request->state,
-            "postcode" => $request->postcode,
-            "country" => $request->country
-        ];
 
         $create = User::query()->find($id)->update([
             "name" => $request->name,
