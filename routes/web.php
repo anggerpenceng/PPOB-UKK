@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Penggunaan controller
         Route::resource('penggunaan' , 'Penggunaan\PenggunaanController');
+        Route::get('/penggunaan/tagihan/{id_user}' , 'Penggunaan\PenggunaanController@tagihan');
 
     }) ;
 

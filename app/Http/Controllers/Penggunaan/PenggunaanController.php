@@ -118,7 +118,13 @@ class PenggunaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $getPenggunaan = User::with('penggunaan')
+            ->find($id);
+
+        $data['selection'] = 4;
+
+        return response()->view('content.penggunaan.edit' , compact('getPenggunaan' , 'data'));
+
     }
 
     /**
@@ -136,11 +142,36 @@ class PenggunaanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request ,$id)
     {
-        //
+        try{
+
+            Penggunaan::destroy($id);
+
+            return redirect('/penggunaan/'.$request->id_user.'/edit');
+
+        }catch (\Exception $exception){
+
+            return redirect('/penggunaan/'.$request->id_user.'/edit')->withErrors([$exception->getMessage()]);
+
+        }
     }
+
+
+
+    public function tagihan(Request $request){
+
+        $getPenggunaan = User::with('penggunaan')
+            ->find($request->id_user);
+
+        $data['selection'] = 4;
+
+        return response()->view('content.penggunaan.tagihan' , compact('getPenggunaan' , 'data'));
+
+    }
+
 }

@@ -40,4 +40,8 @@ class User extends Authenticatable
 
     }
 
+    public function penggunaan(){
+        return $this->hasMany('App\Model\Penggunaan' , 'id_pelanggan');
+    }
+
 }

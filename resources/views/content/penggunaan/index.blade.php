@@ -50,8 +50,12 @@
                                     <a href="{{ route('penggunaan.show' , $users->id) }}">
                                         <button class="btn btn-primary btn-sm">Tambah Penggunaan</button>
                                     </a>
-                                    <button class="btn btn-info btn-sm">Lihat Penggunaan</button>
-                                    <button class="btn btn-success btn-sm">Tagihan</button>
+                                    <a href="{{ route('penggunaan.edit' , $users->id) }}">
+                                        <button class="btn btn-info btn-sm">Lihat Penggunaan</button>
+                                    </a>
+                                    <a href="/penggunaan/tagihan/{{ $users->id }}">
+                                        <button class="btn btn-success btn-sm">Tagihan</button>
+                                    </a>
                                 </td>
                             </tr>
                         @endif

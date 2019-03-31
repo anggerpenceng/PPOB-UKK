@@ -11,29 +11,25 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Penggunaan {{ $getPenggunaan->name }}</h4>
+                <h4 class="card-title">Tagihan {{ $getPenggunaan->name }}</h4>
                 <p class="card-description">
-                    kelola data<code> Penggunaan Aktif </code>
+                    Status<code> Tagihan</code>
                 </p>
                 <table class="table table-bordered" id="user_data_table">
                     <thead>
                     <tr>
                         <th>Bulan</th>
                         <th>Tahun</th>
-                        <th>Meter Awal</th>
-                        <th>Meter Akhir</th>
                         <th>Total Penggunaan</th>
-                        <th>Aksi</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Bulan</th>
                         <th>Tahun</th>
-                        <th>Meter Awal</th>
-                        <th>Meter Akhir</th>
                         <th>Total Penggunaan</th>
-                        <th>Aksi</th>
+                        <th>Status</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -41,19 +37,12 @@
                         <tr>
                             <td>{{ $penggunaan->bulan }}</td>
                             <td>{{ $penggunaan->tahun }}</td>
-                            <td>{{ $penggunaan->meter_awal }}</td>
-                            <td>{{ $penggunaan->meter_akhir }}</td>
                             <td>{{ $penggunaan->jumlah_meter }}</td>
-                            <td>
-                                <form action="{{ route('penggunaan.destroy' , $penggunaan->id) }}" method="post">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <input type="hidden" name="id_user" value="{{ $getPenggunaan->id }}">
-                                    <button type="submit" class="btn btn-rounded btn-sm btn-danger btn-icon" onclick="return confirm('yakin ingin menghapus?')">
-                                        <i class="mdi mdi-delete"></i>
-                                    </button>
-                                </form>
-                            </td>
+                            @if($penggunaan->status > 0)
+                                <td>Lunas</td>
+                            @else
+                                <td>Belum Bayar</td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>
