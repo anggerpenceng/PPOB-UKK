@@ -161,8 +161,12 @@ class PenggunaanController extends Controller
         }
     }
 
-
-
+    /**
+     * View detail tagihan of some users
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function tagihan(Request $request){
 
         $getPenggunaan = User::with('penggunaan')

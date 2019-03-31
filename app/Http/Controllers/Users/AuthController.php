@@ -42,7 +42,7 @@ class AuthController extends Controller
 
         try{
 
-            $getUser = User::query()
+            $getUser = User::with('roles')
                 ->where('username' , '=' , $request->username)
                 ->where('id_role' , '>' , 1)
                 ->first();
@@ -54,7 +54,7 @@ class AuthController extends Controller
                 if (Hash::check($request->password, $getUser->password)) {
 
                     Auth::login($getUser);
-                    return redirect('/');
+                    return redirect('/user-site');
 
                 }
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
 
         try{
 
-            $getUser = User::query()
+            $getUser = User::with('roles')
                 ->where('username' , '=' , $request->username)
                 ->where('id_role' , '=' , 1)
                 ->first();

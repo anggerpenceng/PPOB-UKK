@@ -200,43 +200,52 @@
 						<i class="mdi mdi-home menu-icon"></i>
 					</a>
 				</li>
-				<li class="nav-item @if($data['selection'] == 1) active @endif ">
-					<a class="nav-link" href="/users">
-						<span class="menu-title">Users Data</span>
-						<i class="mdi mdi-contacts menu-icon"></i>
-					</a>
-				</li>
-				<li class="nav-item @if($data['selection'] == 2) active @endif ">
-					<a class="nav-link" href="/roles">
-						<span class="menu-title">Users Roles</span>
-						<i class="mdi mdi-fingerprint menu-icon"></i>
-					</a>
-				</li>
-				<li class="nav-item @if($data['selection'] == 3) active @endif ">
-					<a class="nav-link" href="/tarif">
-						<span class="menu-title">Tarif</span>
-						<i class="mdi mdi-cash-usd menu-icon"></i>
-					</a>
-				</li>
-				<li class="nav-item @if($data['selection'] == 4) active @endif ">
-					<a class="nav-link" href="/penggunaan">
-						<span class="menu-title">Penggunaan User</span>
-						<i class="mdi mdi-cash-multiple menu-icon"></i>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-						<span class="menu-title">Other Data</span>
-						<i class="menu-arrow"></i>
-						<i class="mdi mdi-crosshairs-gps menu-icon"></i>
-					</a>
-					<div class="collapse" id="ui-basic">
-						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-							<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-						</ul>
-					</div>
-				</li>
+				@if(Auth::user()->roles->nama_role == 'admin')
+					<li class="nav-item @if($data['selection'] == 1) active @endif ">
+						<a class="nav-link" href="/users">
+							<span class="menu-title">Users Data</span>
+							<i class="mdi mdi-contacts menu-icon"></i>
+						</a>
+					</li>
+					<li class="nav-item @if($data['selection'] == 2) active @endif ">
+						<a class="nav-link" href="/roles">
+							<span class="menu-title">Users Roles</span>
+							<i class="mdi mdi-fingerprint menu-icon"></i>
+						</a>
+					</li>
+					<li class="nav-item @if($data['selection'] == 3) active @endif ">
+						<a class="nav-link" href="/tarif">
+							<span class="menu-title">Tarif</span>
+							<i class="mdi mdi-cash-usd menu-icon"></i>
+						</a>
+					</li>
+					<li class="nav-item @if($data['selection'] == 4) active @endif ">
+						<a class="nav-link" href="/penggunaan">
+							<span class="menu-title">Penggunaan User</span>
+							<i class="mdi mdi-cash-multiple menu-icon"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+							<span class="menu-title">Other Data</span>
+							<i class="menu-arrow"></i>
+							<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+						</a>
+						<div class="collapse" id="ui-basic">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+								<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+							</ul>
+						</div>
+					</li>
+				@elseif(Auth::user()->roles->nama_role == 'pelanggan')
+					<li class="nav-item @if($data['selection'] == 1) active @endif ">
+						<a class="nav-link" href="/user-site/tagihan">
+							<span class="menu-title">Daftar Tagihan</span>
+							<i class="mdi mdi-view-list menu-icon"></i>
+						</a>
+					</li>
+				@endif
 				<li class="nav-item sidebar-actions">
             <span class="nav-link">
               <div class="border-bottom">

@@ -28,15 +28,15 @@ Route::get('/do-register' , ['as' => 'register' , 'uses' =>  'Users\AuthControll
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', function () {
-        $data['selection'] = 0;
-
-        return view('content.dashboard' , compact('data'));
-    });
-
     Route::get('/logout', [ 'as' => 'logout' , 'uses' => 'Users\AuthController@logout']);
 
     Route::group(['middleware' => 'role.admin'] , function (){
+
+        Route::get('/', function () {
+            $data['selection'] = 0;
+
+            return view('content.dashboard' , compact('data'));
+        });
 
         //Users and Admin
         Route::resource('users' , 'Users\UsersController');
@@ -53,5 +53,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/penggunaan/tagihan/{id_user}' , 'Penggunaan\PenggunaanController@tagihan');
 
     }) ;
+
+    //user site
+    Route::group(['prefix' => 'user-site'] , function (){
+        Route::get('/', function () {
+            $data['selection'] = 0;
+
+            return view('users_content.main' , compact('data'));
+        });
+        Route::get('/tagihan' , 'Penggunaan\TagihanController@index');
+    });
+
+
 
 });
